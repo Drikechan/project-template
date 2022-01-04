@@ -6,11 +6,14 @@ const webpack = require('webpack');
 module.exports = merge(common, {
     mode: 'development',
     devtool: 'eval-cheap-module-source-map',
+    target: 'web',
     devServer: {
         contentBase: '../dist',
-        hot: true,
-        overlay: true
-        // hotonly: true
+        hot: true,//启用热更新如果使用browserslist就会生效不了
+        overlay: true,
+        // hotonly: true,
+        // webSocketServer: 'ws',
+        // target: 'web'
     },
     module: {
         rules: [{
