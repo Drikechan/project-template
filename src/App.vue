@@ -1,15 +1,38 @@
 <template>
-  <div >
-    <svg width="400" height="400" style="border: 1px solid #333">
-      <circle cx="200" cy="200" r="190" fill="none" stroke="green" stroke-width="5" ></circle>
-      <circle cx="200" cy="200"></circle>
+  <div>
+    <svg width="440" height="440" viewbox="0 0 440 440">
+      <circle cx="220" cy="220" r="170" stroke-width="50" stroke="#D1D3D7" fill="none"></circle>
+      <circle
+          class="circle"
+          cx="220"
+          cy="220"
+          r="170"
+          stroke-width="50"
+          stroke="#00A5E0"
+          fill="none"
+          transform="matrix(0,-1,1,0,0,440)"
+      />
     </svg>
   </div>
 </template>
 
-
 <script>
 export default {
-
+  name: 'SvgAnimation'
 }
 </script>
+
+<style scoped>
+.circle {
+  animation: circle 5s linear infinite;
+}
+
+@keyframes circle {
+  from {
+    stroke-dasharray: 0 1069;
+  }
+  to {
+    stroke-dasharray: 1069 0;
+  }
+}
+</style>

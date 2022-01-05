@@ -6,7 +6,7 @@ const webpack = require('webpack');
 module.exports = merge(common, {
     mode: 'development',
     devtool: 'eval-cheap-module-source-map',
-    target: 'web',
+    target: 'web',//启用热更新
     devServer: {
         contentBase: '../dist',
         hot: true,//启用热更新如果使用browserslist就会生效不了
