@@ -3,6 +3,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader-plugin');
+const miniSVGDataURI = require("mini-svg-data-uri");
 module.exports = {
     entry: ['@babel/polyfill', './src/index.js'],
     module: {
@@ -20,7 +21,9 @@ module.exports = {
                         ],
                         /*第一种 使用动态import的语法需要先安装babel-plugin-dynamic-import-webpack，并且在plugins里面配置这个dynamic-import-webpack */
                         /*第一种 使用动态import的语法需要先安装、npm install --save-dev @babel/plugin-syntax-dynamic-import，并且在plugins里面配置这个@babel/plugin-syntax-dynamic-import */
-                        plugins: ["dynamic-import-webpack"]
+                        plugins: ["dynamic-import-webpack", ["@babel/plugin-transform-runtime", {// 不污染全局，在运行时加载
+                            "corejs": 3
+                        }]]
                     }
                 }
             },
@@ -29,10 +32,6 @@ module.exports = {
                 use: {
                     loader: 'vue-loader'
                 }
-            },
-            {
-                test: /\.svg$/,
-                use: ['svg-inline-loader']
             },
             {
                 test: /\.(png|jpe?g|gif|svg)$/i,
@@ -44,6 +43,14 @@ module.exports = {
                         outputPath: 'image/'
                     }
                 }]
+            },
+            {
+                test: /\.svg$/,
+                use: [
+                    {
+                        loader: 'svg-inline-loader'
+                    }
+                ]
             },
             {
                 test: /\.(ttf|woff|woff2)$/i,
@@ -91,7 +98,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/index.html'
         }),
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
     ],
     output: {
         filename: '[name].[hash].bundle.js',

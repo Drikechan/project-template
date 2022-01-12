@@ -3,6 +3,9 @@ const {
 } = require('webpack-merge');
 const common = require('./webpack.common.js');
 const webpack = require('webpack');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+const notifier = require('node-notifier');
+
 module.exports = merge(common, {
     mode: 'development',
     devtool: 'eval-cheap-module-source-map',
@@ -21,7 +24,7 @@ module.exports = merge(common, {
                 use: ['style-loader', {
                         loader: 'css-loader',
                         options: {
-                            importLoaders: 2
+                            importLoaders: 2//表示匹配到样式文件后都会执行下面两个loader
                         }
                     }, 'sass-loader',
                     /* 这边配置postcss-loader有一个比较坑的地方，需要在package.json里面配置一个broswerlist的一个选项，具体见package.json */
@@ -43,6 +46,20 @@ module.exports = merge(common, {
         ]
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+
+        new FriendlyErrorsWebpackPlugin({
+            onErrors: (severity, errors) => {
+                if (severity !== 'error') {
+                    return;
+                }
+                const error = errors[0];
+                notifier.notify({
+                    title: "Webpack error",
+                    message: severity + ': ' + error.name,
+                    subtitle: error.file || ''
+                });
+            }
+        })
     ]
 });
