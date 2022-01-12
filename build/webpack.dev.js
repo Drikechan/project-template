@@ -14,6 +14,7 @@ module.exports = merge(common, {
         contentBase: '../dist',
         hot: true,//启用热更新如果使用browserslist就会生效不了
         overlay: true,
+        port: 9765
         // hotonly: true,
         // webSocketServer: 'ws',
         // target: 'web'
@@ -47,7 +48,6 @@ module.exports = merge(common, {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-
         new FriendlyErrorsWebpackPlugin({
             onErrors: (severity, errors) => {
                 if (severity !== 'error') {

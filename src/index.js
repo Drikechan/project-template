@@ -1,8 +1,8 @@
-// import huawei from './huawei.png';
+import huawei from './huawei.png';
 // import './index.scss';
 // import './style.scss';
 // import '@babel/polyfill';
-// import _ from 'lodash';
+import _ from 'lodash';
 // import Vue from 'vue'
 // import ElementUI from 'element-ui'
 // import locale from 'element-ui/lib/locale/lang/en'
@@ -16,7 +16,7 @@ import App from './App.vue';
 // // container.innerHTML = '123';
 // // container.style.color = 'red';
 // let imgDom = new Image();
-// // console.log(imgDom);
+// console.log(imgDom);
 // canvas.setAttribute('id', 'canvas');
 // canvas.style.width = '700px';
 // canvas.style.height = '700px';
@@ -37,7 +37,7 @@ import App from './App.vue';
 //     console.log(event.clientX, event.clientY);
 // })
 // imgDom.src = huawei;
-
+//
 // imgDom.src = huawei;
 // imgDom.style.position="reactive";
 // container.appendChild(imgDom);
@@ -79,11 +79,11 @@ import App from './App.vue';
 //         console.log(_.join(['a', 'b', 'c'], '~'));
 //     })
 // }
-// document.addEventListener('click', function() {
-//     import('lodash').then(_ => {
-//         console.log(_.join(['a', 'b', 'c'], '~'));
-//     })
-// })
+document.addEventListener('click', function() {
+    import('lodash').then(_ => {
+        console.log(_.join(['a', 'b', 'c'], '~'));
+    })
+})
 new Vue({
 
     render: h => h(App)
