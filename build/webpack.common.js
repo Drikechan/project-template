@@ -5,7 +5,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader-plugin');
 const miniSVGDataURI = require("mini-svg-data-uri");
 module.exports = {
-    entry: ['@babel/polyfill', './src/index.js'],
+    entry: ['@babel/polyfill', './src/main.js'],
+    resolve: {
+        extensions: ['', '.js', '.vue', '.scss', '.css'],
+        alias: {
+            '@': path.resolve(__dirname, '../src'),
+        }
+    },
     module: {
         rules: [{
                 test: /\.m?js$/,
@@ -22,7 +28,6 @@ module.exports = {
                         /*第一种 使用动态import的语法需要先安装babel-plugin-dynamic-import-webpack，并且在plugins里面配置这个dynamic-import-webpack */
                         /*第一种 使用动态import的语法需要先安装、npm install --save-dev @babel/plugin-syntax-dynamic-import，并且在plugins里面配置这个@babel/plugin-syntax-dynamic-import */
                         plugins: ["dynamic-import-webpack", ["@babel/plugin-transform-runtime", {// 不污染全局，在运行时加载
-                            "corejs": 2,
                             "absoluteRuntime": false,
                             "corejs": false,
                             "helpers": true,

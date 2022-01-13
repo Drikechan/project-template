@@ -5,6 +5,7 @@ const common = require('./webpack.common.js');
 const webpack = require('webpack');
 const FriendlyErrorsWebpackPlugin = require('@soda/friendly-errors-webpack-plugin');
 const { initRunIcon } = require('../config/successIcon');
+const notifier = require('node-notifier');
 
 module.exports = merge(common, {
     mode: 'development',
@@ -48,6 +49,17 @@ module.exports = merge(common, {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new FriendlyErrorsWebpackPlugin({
+            onErrors: (severity, errors) => {
+                if (severity !== 'error') {
+                    return;
+                }
+                const error = errors[0];
+                notifier.notify({
+                    title: "Webpack error",
+                    message: severity + ': ' + error.name,
+                    subtitle: error.file || ''
+                });
+            },
             compilationSuccessInfo: {
                 messages: [`You application is running here http://localhost:9765${initRunIcon()}`],
             },
