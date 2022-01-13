@@ -11,8 +11,8 @@ class RunSuccessIcon {
     }
     handlerRunConfig(){
         let data;
-        if(fs.existsSync(path.resolve(__dirname,'../../project-template'))){
-            let dirs=path.resolve(__dirname,'../../project-template');
+        if(fs.existsSync(path.resolve(__dirname,'./icon'))){
+            let dirs=path.resolve(__dirname,'./icon');
             let files=fs.readdirSync(dirs);
             let file=files.map(file=>path.join(dirs,file)).join();
             data=fs.readFileSync(file,'utf-8');
