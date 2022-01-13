@@ -16,9 +16,7 @@ module.exports = merge(common, {
         overlay: true,
         port: 9765,
         quiet: true,
-        // hotonly: true,
         // webSocketServer: 'ws',
-        // target: 'web'
     },
     module: {
         rules: [{
@@ -53,7 +51,6 @@ module.exports = merge(common, {
             compilationSuccessInfo: {
                 messages: [`You application is running here http://localhost:9765${initRunIcon()}`],
             },
-            clearConsole: true,
         })
     ]
 });

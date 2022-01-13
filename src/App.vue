@@ -25,7 +25,7 @@ export default {
   methods: {
     handlerPage() {
       return new Promise((resolve, reject) => {
-        console.log(1)
+        console.log(2)
         resolve()
       })
     }
