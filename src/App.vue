@@ -18,7 +18,18 @@
 
 <script>
 export default {
-  name: 'SvgAnimation'
+  name: 'SvgAnimation',
+  created() {
+    this.handlerPage()
+  },
+  methods: {
+    handlerPage() {
+      return new Promise((resolve, reject) => {
+        console.log(1)
+        resolve()
+      })
+    }
+  }
 }
 </script>
 

@@ -3,8 +3,8 @@ const {
 } = require('webpack-merge');
 const common = require('./webpack.common.js');
 const webpack = require('webpack');
-const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
-const notifier = require('node-notifier');
+const FriendlyErrorsWebpackPlugin = require('@soda/friendly-errors-webpack-plugin');
+const { initRunIcon } = require('../config/successIcon');
 
 module.exports = merge(common, {
     mode: 'development',
@@ -14,7 +14,8 @@ module.exports = merge(common, {
         contentBase: '../dist',
         hot: true,//启用热更新如果使用browserslist就会生效不了
         overlay: true,
-        port: 9765
+        port: 9765,
+        quiet: true,
         // hotonly: true,
         // webSocketServer: 'ws',
         // target: 'web'
@@ -49,17 +50,10 @@ module.exports = merge(common, {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new FriendlyErrorsWebpackPlugin({
-            onErrors: (severity, errors) => {
-                if (severity !== 'error') {
-                    return;
-                }
-                const error = errors[0];
-                notifier.notify({
-                    title: "Webpack error",
-                    message: severity + ': ' + error.name,
-                    subtitle: error.file || ''
-                });
-            }
+            compilationSuccessInfo: {
+                messages: [`You application is running here http://localhost:9765${initRunIcon()}`],
+            },
+            clearConsole: true,
         })
     ]
 });
