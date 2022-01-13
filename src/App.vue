@@ -13,12 +13,17 @@
           transform="matrix(0,-1,1,0,0,440)"
       />
     </svg>
+    <tab-index></tab-index>
   </div>
 </template>
 
 <script>
+import TabIndex from '@/Components/index.vue'
 export default {
   name: 'SvgAnimation',
+  components: {
+    TabIndex
+  },
   created() {
     this.handlerPage()
   },

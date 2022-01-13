@@ -14,7 +14,10 @@ module.exports = merge(common, {
     devServer: {
         contentBase: '../dist',
         hot: true,//启用热更新如果使用browserslist就会生效不了
-        overlay: true,
+        overlay: {
+            warnings: false,
+            errors: true
+        },
         port: 9765,
         quiet: true,
         // webSocketServer: 'ws',

@@ -1,6 +1,5 @@
 const path = require('path');
 const TerserPlugin = require("terser-webpack-plugin");
-
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader-plugin');
 const miniSVGDataURI = require("mini-svg-data-uri");
