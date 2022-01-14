@@ -2,7 +2,6 @@ const path = require('path');
 const TerserPlugin = require("terser-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
-const miniSVGDataURI = require("mini-svg-data-uri");
 module.exports = {
     entry: ['@babel/polyfill', './src/main.js'],
     resolve: {
@@ -42,53 +41,34 @@ module.exports = {
                     }
                 }
             },
-            // {
-            //     test: /\.(png|jpe?g|gif)$/i,
-            //     use: [{
-            //         loader: 'url-loader',
-            //         options: {
-            //             limit: 1024000,
-            //             name: '[name]_[hash].[ext]',
-            //             outputPath: 'image/'
-            //         }
-            //     }]
-            // },
             {
-                test: /\.(png|svg|jpg|gif)$/,
-                type: 'asset',
-                parser: {
-                    dataUrlCondition: {
-                        maxSize: 8 * 1024,
-                    },
-                },
+                test: /\.(png|jpe?g|gif)$/i,
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        limit: 1024000,
+                        name: '[name]_[hash].[ext]',
+                        outputPath: 'image/'
+                    }
+                }]
             },
             {
                 test: /\.html$/,
                 use: ['html-loader'],
             },
-            // {
-            //     test: /\.svg$/,
-            //     loader: 'svg-sprite-loader',
-            //     options: {
-            //         symbolId: 'icon-[name]'
-            //     }
-            // },
-            // {
-            //     test: /\.(ttf|woff|woff2)$/i,
-            //     use: {
-            //         loader: 'file-loader'
-            //     }
-            // }
             {
-                test: /\.(jpe?g|png|gif|svg)$/,
-                loader: 'image-webpack-loader',
-                enforce: 'pre',
+                test: /\.svg$/,
+                loader: 'svg-sprite-loader',
+                options: {
+                    symbolId: 'icon-[name]'
+                }
             },
             {
-                test: /\.(eot|woff|ttf|woff2|appcache|mp4|pdf)(\?|$)/,
-                type: 'asset/resource',
-            },
-
+                test: /\.(ttf|woff|woff2)$/i,
+                use: {
+                    loader: 'file-loader'
+                }
+            }
         ]
     },
     optimization: {
