@@ -1,9 +1,6 @@
 {
   "name": "build-vue",
   "version": "1.0.0",
-  "sideEffects": [
-    "*css"
-  ],
   "description": "",
   "main": "index.js",
   "scripts": {
