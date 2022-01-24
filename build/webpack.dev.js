@@ -6,6 +6,7 @@ const webpack = require('webpack');
 const FriendlyErrorsWebpackPlugin = require('@soda/friendly-errors-webpack-plugin');
 const { initRunIcon } = require('../config/successIcon');
 const notifier = require('node-notifier');
+const WebpackBar = require('webpackbar');
 
 module.exports = merge(common, {
     mode: 'development',
@@ -50,6 +51,10 @@ module.exports = merge(common, {
         ]
     },
     plugins: [
+        new WebpackBar({
+            name: 'B2B Manage-Front End',
+            profile: true
+        }),
         new webpack.HotModuleReplacementPlugin(),
         new FriendlyErrorsWebpackPlugin({
             onErrors: (severity, errors) => {
