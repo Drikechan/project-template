@@ -6,6 +6,7 @@ import App from './App.vue';
 import * as Sentry from "@sentry/vue";
 import { Integrations } from "@sentry/tracing";
 
+// console.log(process.env)
 
 
 

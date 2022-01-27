@@ -1,5 +1,5 @@
 <template>
-  <div id="container">
+  <div id="container" @click="handlerPage">
 <!--    <svg width="440" height="440" viewbox="0 0 440 440">-->
 <!--      <circle cx="220" cy="220" r="170" stroke-width="10" stroke="#D1D3D7" fill="none"  stroke-dasharray="267">-->
 <!--        <animateTransform attributeName="transform" type="rotate" values="0 220 220;360 220 220" dur="1s" repeatCount="indefinite"></animateTransform>-->
@@ -61,7 +61,8 @@
 
       <rect x="10" y="10" width="30" height="20" fill="red"  transform="matrix(0.6 0 0 1.5 3.3 -5)"/>
     </svg>
-
+    [0.6, 0, 3.3]
+    [0, 1.5,-5]
 
   </div>
 </template>
@@ -70,11 +71,12 @@
 export default {
   name: 'SvgAnimation',
   created() {
-    this.handlerPage()
+    // this.handlerPage()
   },
   methods: {
     handlerPage() {
-
+      let res = {}
+      console.log(res.code?.length.code, '<<<<<<<')
       window.onload = function(){
         document.getElementById('container').addEventListener('click',e => {
           console.log(window['aaa'].bbbbbb) //此处window['aaa']为undifine，所以这里一定会报错
