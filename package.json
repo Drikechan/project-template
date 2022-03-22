@@ -40,6 +40,7 @@
     "file-loader": "^6.2.0",
     "html-loader": "^3.1.0",
     "html-webpack-plugin": "^5.3.1",
+    "husky": "^7.0.4",
     "image-webpack-loader": "^8.1.0",
     "mini-css-extract-plugin": "^1.6.0",
     "mini-svg-data-uri": "^1.4.3",
@@ -72,5 +73,11 @@
     "element-ui": "^2.15.6",
     "lodash": "^4.17.21",
     "vue": "^2.6.12"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
+
 }

@@ -71,7 +71,7 @@
 export default {
   name: 'SvgAnimation',
   created() {
-    // this.handlerPage()
+    this.handlerPage()
   },
   methods: {
     handlerPage() {
