@@ -7,7 +7,8 @@
     "test": "jest",
     "dev": "webpack serve --config ./build/webpack.dev.js",
     "build": "webpack --config ./build/webpack.prod.js",
-    "analyse": "webpack --config ./build/webpack.analyse.js"
+    "analyse": "webpack --config ./build/webpack.analyse.js",
+    "prepare": "husky install"
   },
   "browserslist": {
     "production": [
@@ -42,7 +43,7 @@
     "file-loader": "^6.2.0",
     "html-loader": "^3.1.0",
     "html-webpack-plugin": "^5.3.1",
-    "husky": "^7.0.4",
+    "husky": "^7.0.0",
     "image-webpack-loader": "^8.1.0",
     "mini-css-extract-plugin": "^1.6.0",
     "mini-svg-data-uri": "^1.4.3",

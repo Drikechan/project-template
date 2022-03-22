@@ -43,7 +43,7 @@
       newY = b * oldX + d * oldY + f = 1 * 10 + 3 * 10 + 40 = 80
 
       top right corner: oldX=40 oldY=10
-      newX = a * oldX + c * oldY + e = 3 * 40 - 1 * 10 + 30 = 140
+      newX = a * oldX + c * oldY + e = 3 * 40  - 1 * 10 + 30 = 140
       newY = b * oldX + d * oldY + f = 1 * 40 + 3 * 10 + 40 = 110
 
       bottom left corner: oldX=10 oldY=30
