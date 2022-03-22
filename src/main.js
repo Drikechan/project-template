@@ -5,6 +5,7 @@ import App from './App.vue';
 //加入sentry捕获错误
 import * as Sentry from "@sentry/vue";
 import { Integrations } from "@sentry/tracing";
+import "./assets/css/tailwind.css"
 
 // console.log(process.env)
 

@@ -23,21 +23,7 @@ module.exports = {
                     loader: "babel-loader",
                     options: {
                         cacheDirectory: true,//当有设置时，指定的目录将用来缓存 loader 的执行结果。之后的 webpack 构建，将会尝试读取缓存，来避免在每次执行时，可能产生的、高性能消耗的 Babel 重新编译过程(recompilation process)
-                        presets: [
-                            ['@babel/preset-env', {
-                                useBuiltIns: 'usage',
-                                corejs: 2
-                            }]
-                        ],
-                        /*第一种 使用动态import的语法需要先安装babel-plugin-dynamic-import-webpack，并且在plugins里面配置这个dynamic-import-webpack */
-                        /*第一种 使用动态import的语法需要先安装、npm install --save-dev @babel/plugin-syntax-dynamic-import，并且在plugins里面配置这个@babel/plugin-syntax-dynamic-import */
-                        plugins: ["dynamic-import-webpack", ["@babel/plugin-transform-runtime", {// 不污染全局，在运行时加载
-                            "absoluteRuntime": false,
-                            "corejs": false,
-                            "helpers": true,
-                            "regenerator": true,
-                            "useESModules": false
-                        }]]
+
                     }
                 }
             },

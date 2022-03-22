@@ -1,5 +1,6 @@
 <template>
   <div id="container" @click="handlerPage">
+    <div class="flex">1</div>
 <!--    <svg width="440" height="440" viewbox="0 0 440 440">-->
 <!--      <circle cx="220" cy="220" r="170" stroke-width="10" stroke="#D1D3D7" fill="none"  stroke-dasharray="267">-->
 <!--        <animateTransform attributeName="transform" type="rotate" values="0 220 220;360 220 220" dur="1s" repeatCount="indefinite"></animateTransform>-->
@@ -26,7 +27,7 @@
       <path d="M30 15,  30 30Z" stroke="black" fill="transparent" ></path>
       <path d="M30 33,  30 36Z" stroke="black" fill="transparent" ></path>
     </svg>
-
+<div>{{name.code}}</div>
 <!--    <svg viewBox="0 0 200 200">-->
 <!--      <rect x="10" y="10" width="30" height="20" fill="green" />-->
 
@@ -70,12 +71,18 @@
 <script>
 export default {
   name: 'SvgAnimation',
+  data:() => ({
+    name: {}
+  }),
   created() {
-    this.handlerPage()
+    let name = {};
+    console.log(undefined ?? name)
+    this.handlerPage();
   },
   methods: {
     handlerPage() {
-      let res = {}
+      let res = {};
+      console.log(res?.code.name)
       console.log(res.code?.length.code, '<<<<<<<')
       window.onload = function(){
         document.getElementById('container').addEventListener('click',e => {
