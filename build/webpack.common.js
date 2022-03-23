@@ -2,6 +2,8 @@ const path = require('path');
 const TerserPlugin = require("terser-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
+const resolvePath = (filePath) => path.resolve(__dirname, filePath);
+console.log(resolvePath('../src'))
 module.exports = {
     entry: ['@babel/polyfill', './src/main.js'],
     resolve: {

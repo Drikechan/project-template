@@ -21,6 +21,8 @@ module.exports = merge(common, {
         },
         port: 9765,
         quiet: true,
+        progress: true,
+        host: '0.0.0.0',
         // webSocketServer: 'ws',
     },
     module: {

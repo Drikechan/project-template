@@ -64,19 +64,24 @@
     </svg>
     [0.6, 0, 3.3]
     [0, 1.5,-5]
-
+    <TableFile></TableFile>
   </div>
 </template>
 
 <script>
+import TableFile from '@/Components/index.vue';
+
 export default {
   name: 'SvgAnimation',
+  components: {
+    TableFile
+  },
   data:() => ({
     name: {}
   }),
   created() {
     let name = {};
-    console.log(undefined ?? name)
+    console.log(undefined ?? name, '>>>');
     this.handlerPage();
   },
   methods: {
