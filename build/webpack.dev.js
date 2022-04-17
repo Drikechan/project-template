@@ -7,8 +7,14 @@ const FriendlyErrorsWebpackPlugin = require('@soda/friendly-errors-webpack-plugi
 const { initRunIcon } = require('../config/successIcon');
 const notifier = require('node-notifier');
 const WebpackBar = require('webpackbar');
+const portfinder = require('portfinder');
+const config = require('../config');
+const utils = require('./utils');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = merge(common, {
+const MANIFEST_LIST = ['applicationPlugin', 'frameworkPlugin']
+
+const devWebpackConfig = merge(common, {
     mode: 'development',
     devtool: 'eval-cheap-module-source-map',
     target: 'web',//启用热更新
@@ -23,6 +29,7 @@ module.exports = merge(common, {
         quiet: true,
         progress: true,
         host: '0.0.0.0',
+        compress: true,
         // webSocketServer: 'ws',
     },
     module: {
@@ -58,21 +65,37 @@ module.exports = merge(common, {
             profile: true
         }),
         new webpack.HotModuleReplacementPlugin(),
-        new FriendlyErrorsWebpackPlugin({
-            onErrors: (severity, errors) => {
-                if (severity !== 'error') {
-                    return;
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: './public/index.html',
+            inject: true,
+            dll: (function () {
+                let res = [];
+                for (let i = 0; i < MANIFEST_LIST; i++) {
+                  const dllName = require(path.resolve(__dirname, `../dllManifest/${MANIFEST_LIST[i]}-manifest.json`)).name.split('_')
+                  res.push(`/static/dll/${dllName[0]}.${dllName[1]}.dll.js`)
                 }
-                const error = errors[0];
-                notifier.notify({
-                    title: "Webpack error",
-                    message: severity + ': ' + error.name,
-                    subtitle: error.file || ''
-                });
-            },
-            compilationSuccessInfo: {
-                messages: [`You application is running here http://localhost:9765${initRunIcon()}`],
-            },
-        })
+                return res
+              })()
+        }),
     ]
 });
+
+module.exports = new Promise((resolve, reject) => {
+    portfinder.basePort = process.env.HOST || config.dev.port;
+    portfinder.getPort((err, port) => {
+        if (err) {
+            reject(err)
+        } else {
+            process.env.PORT = port;
+            devWebpackConfig.devServer.port = port;
+            devWebpackConfig.plugins.push(new FriendlyErrorsWebpackPlugin({
+                compilationSuccessInfo: {
+                    messages: [`You application is running here http://${devWebpackConfig.devServer.host}:${port}${initRunIcon()}`],
+                },
+                onErrors: config.dev.notifyOnErrors ? utils.createNotifierCallback() : undefined
+            }))
+            resolve(devWebpackConfig)
+        }
+    })
+})

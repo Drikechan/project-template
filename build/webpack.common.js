@@ -1,34 +1,60 @@
 const path = require('path');
 const TerserPlugin = require("terser-webpack-plugin");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { VueLoaderPlugin } = require('vue-loader');
-const resolvePath = (filePath) => path.resolve(__dirname, filePath);
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const threadLoader = require('thread-loader')
+const resolvePath = (filePath) => path.resolve(__dirname, '..', filePath);
 
-console.log(resolvePath('../src'))
+const WORKER_POLL = {
+    workers: 2,//产生worker的数量
+    workerParallelJobs: 50,//一个worker进程执行的任务量
+    poolTimeout: 2000,//闲置定时删除worker进程
+    poolRespawn: false,//允许重新生成一个僵死的 work 池，这个过程会降低整体编译速度
+    name: "project-pool"
+}
+
+//可以通过预警 worker 池来防止启动 worker 时的高延时。这会启动池内最大数量的 worker 并把指定的模块加载到 node.js 的模块缓存中。
+threadLoader.warmup(WORKER_POLL, ['vue-loader', 'babel-loader']);
+
 module.exports = {
     entry: ['@babel/polyfill', './src/main.js'],
     resolve: {
         extensions: ['.vue','.js','.json','scss','css'],
         alias: {
-            '@': path.resolve(__dirname, '../src'),
+            '@': path.resolve(__dirname, resolvePath('src')),
         }
     },
     module: {
         rules: [
             {
-                test: /\.vue$/i,
-                loader: 'vue-loader'
+                test: /\.vue$/,
+                use:[
+                  {
+                    loader: 'thread-loader',
+                    options: WORKER_POLL
+                  },
+                  'cache-loader',
+                  {
+                    loader: 'vue-loader',
+                  }
+                ]
             },
             {
                 test: /\.m?js$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader",
-                    options: {
+                use: [
+                      {
+                        loader: 'thread-loader',
+                        options: WORKER_POLL
+                      },
+                      'cache-loader',
+                      {
+                        loader: "babel-loader",
+                        options: {
                         cacheDirectory: true,//当有设置时，指定的目录将用来缓存 loader 的执行结果。之后的 webpack 构建，将会尝试读取缓存，来避免在每次执行时，可能产生的、高性能消耗的 Babel 重新编译过程(recompilation process)
 
                     }
                 }
+                ]
             },
             {
                 test: /\.(png|jpe?g|gif)$/i,
@@ -94,10 +120,8 @@ module.exports = {
 
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            template: './public/index.html'
-        }),
         new VueLoaderPlugin(),
+        
     ],
     output: {
         filename: '[name].[hash].bundle.js',

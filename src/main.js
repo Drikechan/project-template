@@ -32,4 +32,4 @@ Sentry.init({
 new Vue({
 
     render: h => h(App)
-  }).$mount('#container')
+  }).$mount('#app')
