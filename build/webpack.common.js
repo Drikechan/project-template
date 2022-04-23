@@ -58,15 +58,11 @@ module.exports = {
             },
             {
                 test: /\.(png|jpe?g|gif)$/i,
-                use: [{
-                    loader: 'url-loader',
-                    options: {
-                        limit: 1024000,
-                        name: '[name]_[hash].[ext]',
-                        outputPath: 'image/'
-                    }
-                }]
-            },
+                type: 'asset/resource',
+                generator: {
+                    filename: 'image/[name]_[hash].[ext]'
+                }
+            },            
             {
                 test: /\.html$/,
                 use: ['html-loader'],
@@ -80,9 +76,7 @@ module.exports = {
             },
             {
                 test: /\.(ttf|woff|woff2)$/i,
-                use: {
-                    loader: 'file-loader'
-                }
+                type: 'asset/resource'
             }
         ]
     },
@@ -124,8 +118,8 @@ module.exports = {
         
     ],
     output: {
-        filename: '[name].[hash].bundle.js',
-        chunkFilename: '[name].[hash].js',
+        filename: '[name].[chunkhash].bundle.js',
+        chunkFilename: '[name].[chunkhash].js',
         path: path.resolve(__dirname, '../dist')
     },
     performance: {

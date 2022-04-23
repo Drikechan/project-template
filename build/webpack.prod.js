@@ -41,14 +41,15 @@ module.exports = merge(common, {
         ]
     },
     plugins: [
-        // new BundleAnalyzerPlugin(),
         new CleanWebpackPlugin(),
-        new MiniCssExtractPlugin()
+        new MiniCssExtractPlugin({
+            filename: '[name][contenthash:8].css'
+        })
     ],
     optimization: {
         minimize: true,
         minimizer: [
             new CssMinimizerPlugin()
         ]
-    }
+    },
 });

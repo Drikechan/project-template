@@ -65,6 +65,7 @@
     [0.6, 0, 3.3]
     [0, 1.5,-5]
     <TableFile></TableFile>
+    <img src="./huawei.png" alt="">
   </div>
 </template>
 

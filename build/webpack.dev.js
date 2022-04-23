@@ -78,7 +78,7 @@ const devWebpackConfig = merge(common, {
                 return res
               })()
         }),
-    ]
+    ],
 });
 
 module.exports = new Promise((resolve, reject) => {
