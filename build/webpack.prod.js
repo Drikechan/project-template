@@ -6,6 +6,7 @@ const {
     CleanWebpackPlugin
 } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 /* 开启包分析 */
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -49,7 +50,12 @@ module.exports = merge(common, {
     optimization: {
         minimize: true,
         minimizer: [
-            new CssMinimizerPlugin()
+            new CssMinimizerPlugin(),
+            new TerserPlugin({
+                test: /\.js(\?.*)?$/i,
+                /* 启用多进程并发运行并设置并发运行次数。 */
+                parallel: 4
+            }),
         ]
     },
 });

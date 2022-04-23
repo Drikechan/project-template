@@ -1,8 +1,11 @@
 const path = require('path');
 const TerserPlugin = require("terser-webpack-plugin");
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const threadLoader = require('thread-loader')
+const threadLoader = require('thread-loader');
 const resolvePath = (filePath) => path.resolve(__dirname, '..', filePath);
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const MANIFEST_LIST = ['applicationPlugin', 'frameworkPlugin']
 
 const WORKER_POLL = {
     workers: 2,//产生worker的数量
@@ -93,6 +96,7 @@ module.exports = {
                 /* 启用多进程并发运行并设置并发运行次数。 */
                 parallel: 4
             }),
+
         ],
         splitChunks: {
             chunks: 'all',
@@ -115,6 +119,19 @@ module.exports = {
     },
     plugins: [
         new VueLoaderPlugin(),
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: './public/index.html',
+            inject: true,
+            dll: (function () {
+                let res = [];
+                for (let i = 0; i < MANIFEST_LIST; i++) {
+                  const dllName = require(path.resolve(__dirname, `../dllManifest/${MANIFEST_LIST[i]}-manifest.json`)).name.split('_')
+                  res.push(`/static/dll/${dllName[0]}.${dllName[1]}.dll.js`)
+                }
+                return res
+              })()
+        }),
         
     ],
     output: {

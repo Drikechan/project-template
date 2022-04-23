@@ -10,9 +10,7 @@ const WebpackBar = require('webpackbar');
 const portfinder = require('portfinder');
 const config = require('../config');
 const utils = require('./utils');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const MANIFEST_LIST = ['applicationPlugin', 'frameworkPlugin']
 
 const devWebpackConfig = merge(common, {
     mode: 'development',
@@ -65,19 +63,6 @@ const devWebpackConfig = merge(common, {
             profile: true
         }),
         new webpack.HotModuleReplacementPlugin(),
-        new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: './public/index.html',
-            inject: true,
-            dll: (function () {
-                let res = [];
-                for (let i = 0; i < MANIFEST_LIST; i++) {
-                  const dllName = require(path.resolve(__dirname, `../dllManifest/${MANIFEST_LIST[i]}-manifest.json`)).name.split('_')
-                  res.push(`/static/dll/${dllName[0]}.${dllName[1]}.dll.js`)
-                }
-                return res
-              })()
-        }),
     ],
 });
 
