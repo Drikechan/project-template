@@ -8,6 +8,7 @@ const {
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require("terser-webpack-plugin");
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const FriendlyErrorsWebpackPlugin = require('@soda/friendly-errors-webpack-plugin');
 /* 开启包分析 */
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -45,7 +46,8 @@ module.exports = merge(common, {
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
             filename: '[name][contenthash:8].css'
-        })
+        }),
+        new FriendlyErrorsWebpackPlugin()
     ],
     optimization: {
         minimize: true,
@@ -58,4 +60,5 @@ module.exports = merge(common, {
             }),
         ]
     },
+    stats: 'errors-only'
 });

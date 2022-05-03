@@ -66,16 +66,19 @@
     [0, 1.5,-5]
     <TableFile></TableFile>
     <img src="./huawei.png" alt="">
+    <table-test />
   </div>
 </template>
 
 <script>
 import TableFile from '@/Components/index.vue';
+import TableTest from '@/Components/table.vue';
 
 export default {
   name: 'SvgAnimation',
   components: {
-    TableFile
+    TableFile,
+    TableTest
   },
   data:() => ({
     name: {}

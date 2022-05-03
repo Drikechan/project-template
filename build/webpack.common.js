@@ -84,8 +84,8 @@ module.exports = {
         ]
     },
     optimization: {
+        name: 'runtime',
         runtimeChunk: {
-            name: 'runtime',
         },
         usedExports: true,
         providedExports: true,
@@ -108,7 +108,7 @@ module.exports = {
                     filename: '[name].js'
                 },
                 default: {
-                    // minChunks: 2,
+                    minChunks: 2,
                     priority: -20,
                     reuseExistingChunk: true,
                     filename: 'min.js'

@@ -28,6 +28,7 @@ const devWebpackConfig = merge(common, {
         progress: true,
         host: '0.0.0.0',
         compress: true,
+        stats: 'errors-only',
         // webSocketServer: 'ws',
     },
     module: {
