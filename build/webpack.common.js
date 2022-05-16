@@ -84,7 +84,6 @@ module.exports = {
         ]
     },
     optimization: {
-        name: 'runtime',
         runtimeChunk: {
         },
         usedExports: true,
